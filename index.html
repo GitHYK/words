@@ -29,6 +29,7 @@
     padding: 16px 28px; display: flex; align-items: center; gap: 16px;
     position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); flex-wrap: wrap;
   }
+  .header-top { display: flex; align-items: center; gap: 12px; flex: 1; min-width: 0; }
   .logo { font-size: 20px; font-weight: 700; color: var(--accent); letter-spacing: -1px; white-space: nowrap; }
   .logo span { color: var(--accent2); }
   .search-wrap { flex: 1; position: relative; max-width: 560px; min-width: 180px; }
@@ -193,21 +194,177 @@
 
   mark { background:rgba(244,200,66,.22);color:var(--accent);border-radius:3px;padding:0 2px; }
 
-  @media(max-width:600px) {
-    header { padding:12px 14px;gap:8px; }
-    main { padding:14px; }
-    .stats-bar { padding:7px 14px; }
-    .quiz-word { font-size:22px; }
+  /* ── RESPONSIVE ──────────────────────────────────────── */
+
+  /* 태블릿 (≤ 900px) */
+  @media (max-width: 900px) {
+    main { padding: 18px 20px; }
+    #results { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; }
+  }
+
+  /* 모바일 (≤ 640px) */
+  @media (max-width: 640px) {
+
+    /* ── 헤더 2줄 레이아웃 ── */
+    header {
+      padding: 10px 14px;
+      gap: 8px;
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .header-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo { font-size: 18px; flex-shrink: 0; }
+    .search-wrap {
+      flex: 1;
+      max-width: none;
+      min-width: 0;
+    }
+    #searchInput {
+      font-size: 16px; /* iOS 줌 방지 */
+      padding: 9px 12px 9px 34px;
+    }
+
+    /* ── 버튼 바 가로 스크롤 ── */
+    .mode-btns {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding-bottom: 2px;
+      flex-wrap: nowrap;
+    }
+    .mode-btns::-webkit-scrollbar { display: none; }
+    .mode-btn {
+      font-size: 12px;
+      padding: 8px 12px;
+      flex-shrink: 0;
+      min-height: 36px;
+    }
+    .add-btn {
+      font-size: 12px;
+      padding: 8px 13px;
+      flex-shrink: 0;
+      min-height: 36px;
+    }
+
+    /* ── 통계 바 ── */
+    .stats-bar {
+      padding: 6px 14px;
+      font-size: 11px;
+    }
+
+    /* ── 카드 그리드: 1열 ── */
+    main { padding: 12px 12px; }
+    #results { grid-template-columns: 1fr; gap: 8px; }
+
+    .word-card { padding: 12px 14px; border-radius: 10px; }
+    .card-en { font-size: 15px; }
+    .card-kr { font-size: 13px; }
+    .card-actions { gap: 5px; margin-top: 8px; }
+    .card-action-btn {
+      font-size: 11px;
+      padding: 6px 10px;
+      min-height: 32px; /* 터치 타겟 */
+    }
+
+    /* ── 퀴즈 ── */
+    #quizBanner { padding: 14px 14px; }
+    .quiz-word { font-size: 22px; margin-bottom: 12px; }
+    .quiz-options {
+      grid-template-columns: 1fr; /* 모바일: 1열 */
+      gap: 7px;
+    }
+    .quiz-opt {
+      font-size: 14px;
+      padding: 13px 14px;
+      min-height: 48px; /* 터치 타겟 */
+    }
+    .quiz-action-btn {
+      font-size: 12px;
+      padding: 8px 14px;
+      min-height: 36px;
+    }
+    .quiz-next-btn {
+      font-size: 14px;
+      padding: 11px 24px;
+      min-height: 44px;
+      margin-top: 14px;
+    }
+
+    /* ── 모달: 하단 시트 스타일 ── */
+    .modal-overlay {
+      align-items: flex-end;
+      padding: 0;
+    }
+    .modal {
+      border-radius: 20px 20px 0 0;
+      max-width: 100%;
+      width: 100%;
+      padding: 20px 18px 32px;
+    }
+    .modal-en { font-size: 22px; }
+    .modal-kr { font-size: 15px; padding: 12px; }
+    .modal-btn {
+      font-size: 12px;
+      padding: 10px 14px;
+      min-height: 40px;
+    }
+
+    /* ── 편집 모달 ── */
+    .modal-overlay .edit-modal {
+      border-radius: 20px 20px 0 0;
+      max-width: 100%;
+      padding: 20px 18px 32px;
+    }
+    .form-group input,
+    .form-group textarea { font-size: 16px; } /* iOS 줌 방지 */
+
+    /* ── 확인 다이얼로그 ── */
+    .confirm-overlay { align-items: flex-end; padding: 0; }
+    .confirm-box {
+      border-radius: 20px 20px 0 0;
+      max-width: 100%;
+      width: 100%;
+      padding: 24px 20px 36px;
+    }
+    .confirm-btn { padding: 12px 24px; min-height: 44px; }
+
+    /* ── 토스트: 하단 중앙 ── */
+    .toast {
+      left: 14px;
+      right: 14px;
+      bottom: 16px;
+      text-align: center;
+    }
+
+    /* ── 페이지네이션 ── */
+    .page-btn { width: 38px; height: 38px; font-size: 13px; }
+    .pagination { gap: 5px; margin-top: 20px; }
+  }
+
+  /* 아주 작은 화면 (≤ 380px) */
+  @media (max-width: 380px) {
+    .logo { font-size: 16px; }
+    .mode-btn { font-size: 11px; padding: 7px 10px; }
+    .quiz-word { font-size: 19px; }
+    .card-en { font-size: 14px; }
   }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="logo">WORD<span>S</span></div>
-  <div class="search-wrap">
-    <span class="search-icon">🔍</span>
-    <input type="text" id="searchInput" placeholder="영어 또는 한국어로 검색..." autocomplete="off" spellcheck="false">
+  <div class="header-top">
+    <div class="logo">WORD<span>S</span></div>
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="영어 또는 한국어로 검색..." autocomplete="off" spellcheck="false">
+    </div>
   </div>
   <div class="mode-btns">
     <button class="mode-btn active" onclick="setMode('all')">전체</button>
